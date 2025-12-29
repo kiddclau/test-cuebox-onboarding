@@ -65,16 +65,19 @@ This file helps identify issues before client sign-off or import.
 4. Project Structure
 
 cuebox-onboarding/
+
   requirements.txt
   README.md
   config.py
   helpers.py
   make_constituents.py
   make_tags.py
+  
   data/
     constituents.csv
     emails.csv
     donations.csv
+    
   output/
     CueBox_Constituents.csv
     CueBox_Tags.csv
