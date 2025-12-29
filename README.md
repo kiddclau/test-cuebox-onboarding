@@ -1,6 +1,6 @@
 CueBox Client Onboarding – Data Transformation Project
+1. Overview
 
-Overview
 This project simulates a real client onboarding task for CueBox.
 
 The goal is to transform three input data exports from a legacy system into two CSV files for client sign-off and import into CueBox.
@@ -9,83 +9,128 @@ The data covers constituents, their emails, and their donation history.
 
 Data quality is critical because the information is used for marketing and fundraising outreach.
 
-Inputs
+2. Inputs
+
 All input files are located in the data/ folder.
 
-constituents.csv: One row per constituent (Patron ID), including names, company, salutation, and tags.
+constituents.csv
+One row per constituent (Patron ID), including names, company, salutation, and tags.
 
-emails.csv: Additional emails per constituent (multiple rows per Patron ID).
+emails.csv
+Additional emails per constituent (multiple rows per Patron ID).
 
-donations.csv: Donation transactions (multiple rows per Patron ID).
+donations.csv
+Donation transactions (multiple rows per Patron ID).
 
-Outputs
+3. Outputs
+
 All generated files are written to the output/ folder.
 
 3.1 CueBox_Constituents.csv
 
 One row per constituent, formatted for the CueBox Constituents import.
 
-Includes normalized names and company information.
+Includes:
 
-Includes standardized emails.
+Normalized names and company information
 
-Includes mapped and cleaned tags.
+Standardized emails
 
-Includes donation aggregates (lifetime total and most recent donation).
+Mapped and cleaned tags
 
-Includes background information.
+Donation aggregates (lifetime total and most recent donation)
+
+Background information
 
 3.2 CueBox_Tags.csv
 
-One row per tag.
+A summary file with:
 
-Includes the number of unique constituents associated with each tag.
+One row per tag
+
+The number of unique constituents associated with each tag
 
 3.3 qa_constituents.csv
 
-A quality-assurance report.
+A quality-assurance report that:
 
-Lists missing required fields.
+Lists missing required fields
 
-Lists invalid values.
+Lists invalid values
 
-Lists rule violations (e.g. Email 2 without Email 1).
+Lists rule violations (e.g. Email 2 without Email 1)
 
-Helps identify issues before client sign-off or import.
+This file helps identify issues before client sign-off or import.
 
-Project Structure cuebox-onboarding/ requirements.txt README.md config.py helpers.py make_constituents.py make_tags.py data/ constituents.csv emails.csv donations.csv output/ CueBox_Constituents.csv CueBox_Tags.csv qa_constituents.csv
+4. Project Structure
+cuebox-onboarding/
+  requirements.txt
+  README.md
+  config.py
+  helpers.py
+  make_constituents.py
+  make_tags.py
+  data/
+    constituents.csv
+    emails.csv
+    donations.csv
+  output/
+    CueBox_Constituents.csv
+    CueBox_Tags.csv
+    qa_constituents.csv
 
-File Overview
+5. File Overview
 
-requirements.txt: Python dependencies required to run the project.
+requirements.txt
+Python dependencies required to run the project.
 
-config.py: Central configuration (API URLs and cache paths).
+config.py
+Central configuration (API URLs and cache paths).
 
-helpers.py: Shared utility functions (email parsing, tag mapping, donation aggregation).
+helpers.py
+Shared utility functions (email parsing, tag mapping, donation aggregation).
 
-make_constituents.py: Generates the CueBox Constituents output (Output #1).
+make_constituents.py
+Generates the CueBox Constituents output (Output #1).
 
-make_tags.py: Generates the CueBox Tags output (Output #2).
+make_tags.py
+Generates the CueBox Tags output (Output #2).
 
-Setup Instructions
+6. Setup Instructions
+
 Ensure Python 3.10 or newer is installed.
 
-Verify installation using python --version.
+Verify installation using:
+
+python --version
+
 
 Install dependencies using:
 
 python -m pip install -r requirements.txt
 
-How to Run 7.1 Generate CueBox Constituents (Output #1) python make_constituents.py --constituents data/constituents.csv --emails data/emails.csv --donations data/donations.csv
-Creates output/CueBox_Constituents.csv.
+7. How to Run
+7.1 Generate CueBox Constituents (Output #1)
+python make_constituents.py --constituents data/constituents.csv --emails data/emails.csv --donations data/donations.csv
 
-Creates output/qa_constituents.csv.
 
-7.2 Generate CueBox Tags (Output #2) python make_tags.py --constituents data/constituents.csv
+This creates:
 
-Creates output/CueBox_Tags.csv.
+output/CueBox_Constituents.csv
 
-Data Transformations & Business Rules 8.1 Constituent Type
+output/qa_constituents.csv
+
+7.2 Generate CueBox Tags (Output #2)
+python make_tags.py --constituents data/constituents.csv
+
+
+This creates:
+
+output/CueBox_Tags.csv
+
+8. Data Transformations & Business Rules
+8.1 Constituent Type
+
 If Company is populated and First Name and Last Name are empty, the type is Company.
 
 Otherwise, the type is Person.
@@ -138,14 +183,16 @@ Most Recent Donation Amount is the amount of that donation.
 
 Amounts are formatted as $1,234.56.
 
-Validation & QA
+9. Validation & QA
+
 The project performs automatic validation.
 
 Checks include unique constituent IDs, required timestamps, valid titles, email rules, and duplicate records.
 
 Results are written to qa_constituents.csv to ensure data quality before import.
 
-Assumptions & Decisions
+10. Assumptions & Decisions
+
 Gender is derived from Salutation, not from the source “Gender” column.
 
 The source “Gender” column was ignored because its values did not represent gender.
@@ -158,7 +205,8 @@ Donations without a matching constituent are ignored.
 
 All assumptions are documented for transparency and review with the Client Success Manager.
 
-AI Tool Usage
+11. AI Tool Usage
+
 AI tools were used to help structure the transformation logic.
 
 AI tools were used to validate business rules.
@@ -166,12 +214,3 @@ AI tools were used to validate business rules.
 AI tools were used to improve code readability and documentation.
 
 All final decisions and code were reviewed and adjusted manually.
-
-Notes for Reviewers
-The code is intentionally written to be clear and readable.
-
-Logic is separated into reusable helper functions.
-
-Validation output allows quick identification of data issues.
-
-The project can be extended easily to support additional CueBox import formats.
