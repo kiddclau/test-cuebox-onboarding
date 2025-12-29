@@ -79,6 +79,7 @@ cuebox-onboarding/
   make_tags.py
   
   data/
+  
     constituents.csv
     
     emails.csv
@@ -86,6 +87,7 @@ cuebox-onboarding/
     donations.csv
     
   output/
+  
     CueBox_Constituents.csv
     
     CueBox_Tags.csv
