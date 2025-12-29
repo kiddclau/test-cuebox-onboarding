@@ -63,6 +63,7 @@ Lists rule violations (e.g. Email 2 without Email 1)
 This file helps identify issues before client sign-off or import.
 
 4. Project Structure
+
 cuebox-onboarding/
   requirements.txt
   README.md
@@ -79,7 +80,7 @@ cuebox-onboarding/
     CueBox_Tags.csv
     qa_constituents.csv
 
-5. File Overview
+6. File Overview
 
 requirements.txt
 Python dependencies required to run the project.
